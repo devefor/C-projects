@@ -1,0 +1,1 @@
+-I /opt/hw2/task1_prog/include -D HEADER_1_H -D MACRO1=1

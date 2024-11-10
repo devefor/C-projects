@@ -56,7 +56,6 @@ video_file_t** sort_video_files(const video_file_t** files,
         }
         copy_func(sort_files[i], files[i]);
     }
-    sort_files[len] = NULL;
 
     video_file_t* video_temp = (video_file_t*)malloc_func(sizeof(video_file_t));
     if (!video_temp) {
@@ -77,33 +76,31 @@ video_file_t** sort_video_files(const video_file_t** files,
     }
 
     free(video_temp);
+    sort_files[len] = '\0';
     return sort_files;
 }
 
-int main(void) {
-    // Создаем несколько файлов с разными размерами
-    video_file_t file1 = {"File 1", "H264", 500, 120, 1920, 1080};
+int main(void)
+{
+    video_file_t file1 = {"File 1", "H264", 500, 120, 640, 512};
     video_file_t file2 = {"File 2", "H265", 1000, 150, 1920, 1080};
-    video_file_t file3 = {"File 3", "VP9", 200, 90, 1920, 1080};
+    video_file_t file3 = {"File 3", "VP9", 200, 90, 1280, 1024};
+    video_file_t file4 = {"File 4", "MJPEG", 100, 50, 720, 480};
+    video_file_t file5 = {"File 5", "VP8", 1500, 10, 4096, 2160};
 
-    const video_file_t* files[] = {&file1, &file2, &file3, NULL};
-
+    const video_file_t* files[] = {&file1, &file2, &file3, &file4, &file5, '\0'};
     video_file_t** sorted_files = sort_video_files(files, is_less_func, copy_func, malloc_func);
     
-    // Проверяем, что файлы отсортированы по размеру
     if (sorted_files) {
-        printf("Sorted by size:\n");
         for (size_t i = 0; sorted_files[i]; i++) {
             printf("File: %s, Size: %zu\n", sorted_files[i]->name, sorted_files[i]->size_bytes);
         }
-
-        // Освобождаем память
         for (size_t i = 0; sorted_files[i]; i++) {
             free(sorted_files[i]);
         }
         free(sorted_files);
     } else {
-        printf("Sorting failed\n");
+        printf("Failed\n");
     }
     return 0;
 }

@@ -25,16 +25,16 @@ int is_less_func(const video_file_t* a, const video_file_t* b) {
 }
 
 
-video_file_t** sort_video_files(const video_file_t** files,
-    int (*is_less_func)(const video_file_t*, const video_file_t*),
-    void (*copy_func)(video_file_t*, const video_file_t*),
-    void* (*malloc_func)(unsigned long long))
-{
 // video_file_t** sort_video_files(const video_file_t** files,
-//     is_less_func_t is_less_func,
-//     copy_func_t copy_func,
-//     malloc_func_t malloc_func)
+//     int (*is_less_func)(const video_file_t*, const video_file_t*),
+//     void (*copy_func)(video_file_t*, const video_file_t*),
+//     void* (*malloc_func)(unsigned long long))
 // {
+video_file_t** sort_video_files(const video_file_t** files,
+    is_less_func_t is_less_func,
+    copy_func_t copy_func,
+    malloc_func_t malloc_func)
+{
     size_t len = 0;
     while (files[len]) {
         len++;
@@ -57,26 +57,22 @@ video_file_t** sort_video_files(const video_file_t** files,
         copy_func(sort_files[i], files[i]);
     }
 
-    video_file_t* video_temp = (video_file_t*)malloc_func(sizeof(video_file_t));
-    if (!video_temp) {
-        for (size_t i = 0; i < len; i++)
-            free(sort_files[i]);
-        free(sort_files);
-        return NULL;
-    }
+    video_file_t video_temp;
 
     for (size_t i = 0; i < len - 1; i++) {
-        for (size_t j = 0; j < len - i - 1; j++) {
-            if (!is_less_func(sort_files[j], sort_files[j + 1])) {
-                copy_func(video_temp, sort_files[j]);
-                copy_func(sort_files[j], sort_files[j + 1]);
-                copy_func(sort_files[j + 1], video_temp);
-            }
-        }
+        size_t min = i;
+        for (size_t j = i + 1; j < len; j++)
+            if (is_less_func(sort_files[j], sort_files[min]))
+                min = j;
+        
+        if (min != i) {
+            copy_func(&video_temp, sort_files[i]);
+            copy_func(sort_files[i], sort_files[min]);
+            copy_func(sort_files[min], &video_temp);
+        }           
     }
-
-    free(video_temp);
-    sort_files[len] = '\0';
+    
+    sort_files[len] = NULL;
     return sort_files;
 }
 
@@ -88,7 +84,7 @@ int main(void)
     video_file_t file4 = {"File 4", "MJPEG", 100, 50, 720, 480};
     video_file_t file5 = {"File 5", "VP8", 1500, 10, 4096, 2160};
 
-    const video_file_t* files[] = {&file1, &file2, &file3, &file4, &file5, '\0'};
+    const video_file_t* files[] = {&file1, &file2, &file3, &file4, &file5, NULL};
     video_file_t** sorted_files = sort_video_files(files, is_less_func, copy_func, malloc_func);
     
     if (sorted_files) {
@@ -107,29 +103,14 @@ int main(void)
 
 
     // SELECTIONSORT
+    // in code
+    // BUBBLESORT
     // for (size_t i = 0; i < len - 1; i++) {
-    //     size_t min = i;
-    //     for (size_t j = i + 1; j < len; j++)
-    //         if (is_less_func(sort_files[j], sort_files[min]))
-    //             min = j;
-        
-    //     if (min != i) {
-    //         video_file_t* video_temp = (video_file_t*)malloc_func(sizeof(video_file_t));
-    //         if (!video_temp) {
-    //             for (size_t k = 0; k < len; k++)
-    //                 free(sort_files[k]);
-    //             free(sort_files);
-    //             return NULL;
+    //     for (size_t j = 0; j < len - i - 1; j++) {
+    //         if (!is_less_func(sort_files[j], sort_files[j + 1])) {
+    //             copy_func(&video_temp, sort_files[j]);
+    //             copy_func(sort_files[j], sort_files[j + 1]);
+    //             copy_func(sort_files[j + 1], &video_temp);
     //         }
-    //         copy_func(video_temp, sort_files[j - 1]);
-    //         copy_func(sort_files[j - 1], sort_files[j]);
-    //         copy_func(sort_files[j], video_temp);
-    //         free(video_temp);
     //     }
-
-    //     if (min != i) {
-    //             video_file_t* video_temp = sort_files[i];
-    //             sort_files[i] = sort_files[min];
-    //             sort_files[min] = video_temp;
-    //     }           
     // }

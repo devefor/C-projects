@@ -57,7 +57,7 @@ video_file_t** sort_video_files(const video_file_t** files,
         copy_func(sort_files[i], files[i]);
     }
 
-    video_file_t video_temp;
+    video_file_t video_temp = {0};
 
     for (size_t i = 0; i < len - 1; i++) {
         size_t min = i;

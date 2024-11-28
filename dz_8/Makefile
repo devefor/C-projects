@@ -5,16 +5,16 @@ CFLAGS = -Werror -Wall -Wextra -Wpedantic -fsanitize=address -fsanitize=leak -DO
 SRC = a.c b.c c.c d.c
 TARGET = a b c d
 
-runA: $(word 1, $(TARGET))
+run_a: $(word 1, $(TARGET))
 	./$(word 1, $(TARGET))
 
-runB: $(word 2, $(TARGET))
+run_b: $(word 2, $(TARGET))
 	./$(word 2, $(TARGET))
 
-runC: $(word 3, $(TARGET))
+run_c: $(word 3, $(TARGET))
 	./$(word 3, $(TARGET))
 
-runD: $(word 4, $(TARGET))
+run_d: $(word 4, $(TARGET))
 	./$(word 4, $(TARGET))
 
 $(word 1, $(TARGET)): $(word 1, $(SRC))

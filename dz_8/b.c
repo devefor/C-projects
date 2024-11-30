@@ -13,7 +13,7 @@ typedef struct Edge {
 
 void lsd_sort(Edge_t* edges, int32_t count_edge);
 int32_t origin(int32_t* parent, int32_t apex);
-void merge_set(int32_t* parent, int32_t* level, int32_t apex_1, int32_t apex_2);
+void merge_set(int32_t* parent, int32_t* level, int32_t root_1, int32_t root_2);
 int32_t kraskal(Edge_t* edges, int32_t apexs, int32_t count_edge);
 
 int main(void)
@@ -117,20 +117,15 @@ int32_t origin(int32_t* root, int32_t apex)
 }
 
 // Конкатенируем графы, то есть задаем корневые вершины для вершин
-void merge_set(int32_t* root, int32_t* level, int32_t apex_1, int32_t apex_2)
+void merge_set(int32_t* root, int32_t* level, int32_t root_1, int32_t root_2)
 {
-    int32_t root_1 = origin(root, apex_1);
-    int32_t root_2 = origin(root, apex_2);
-
-    if (root_1 != root_2) {
-        if (level[root_1] > level[root_2])
-            root[root_2] = root_1;
-        else if (level[root_2] > level[root_1])
-            root[root_1] = root_2;
-        else {
-            root[root_2] = root_1;
-            level[root_1]++;
-        }
+    if (level[root_1] > level[root_2])
+        root[root_2] = root_1;
+    else if (level[root_2] > level[root_1])
+        root[root_1] = root_2;
+    else {
+        root[root_2] = root_1;
+        level[root_1]++;
     }
 }
 
@@ -158,8 +153,11 @@ int32_t kraskal(Edge_t* edges, int32_t apexs, int32_t count_edge)
         int32_t apex_2 = edges[i].apex_2;
         int32_t length = edges[i].length;
 
-        if (origin(root, apex_1) != origin(root, apex_2)) {
-            merge_set(root, level, apex_1, apex_2);
+        int32_t root_1 = origin(root, apex_1);
+        int32_t root_2 = origin(root, apex_2);
+
+        if (root_1 != root_2) {
+            merge_set(root, level, root_1, root_2);
             sum_length += length;
             sum_edge++;
         }

@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
-#include <math.h>
 
 /*
 Дан массив длины N чисел с плавающей запятой одинарной точности (float).

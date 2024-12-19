@@ -1,7 +1,6 @@
 #include <stdio.h>
-#include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
+#include <string.h>
 
 // START OF TEST DATA
 typedef struct {
@@ -13,11 +12,13 @@ typedef struct {
     size_t height;
 } video_file_t;
 
-int filter_func(const video_file_t* file) {
+int filter_func(const video_file_t* file)
+{
     return file->size_bytes > 1000000;
 }
 
-void copy_func(video_file_t* dst, const video_file_t* src) {
+void copy_func(video_file_t* dst, const video_file_t* src)
+{
     memcpy(dst, src, sizeof(video_file_t));
 }
 
@@ -48,19 +49,19 @@ video_file_t file3 = {
     .height = 2160
 };
 
-video_file_t* files[] = { &file1, &file2, &file3, '\0'};
+video_file_t* files[] = { &file1, &file2, &file3, '\0' };
 // END OF TEST DATA
 
-video_file_t** filter_video_files(const video_file_t** files, 
-        int (*filter_func)(const video_file_t*), 
-        void (*copy_func)(video_file_t* dst, const video_file_t* src),
-        void* (*malloc_func)(size_t size))
+video_file_t** filter_video_files(const video_file_t** files,
+    int (*filter_func)(const video_file_t*),
+    void (*copy_func)(video_file_t* dst, const video_file_t* src),
+    void* (*malloc_func)(size_t size))
 {
-// video_file_t** filter_video_files(const video_file_t** files,
-//     filter_func_t filter_func,
-//     copy_func_t copy_func,
-//     malloc_func_t malloc_func)
-// {
+    // video_file_t** filter_video_files(const video_file_t** files,
+    //     filter_func_t filter_func,
+    //     copy_func_t copy_func,
+    //     malloc_func_t malloc_func)
+    // {
     size_t len = 0;
     const video_file_t** pointer_files = files;
     while (*pointer_files) {
@@ -96,7 +97,8 @@ video_file_t** filter_video_files(const video_file_t** files,
     return filter_files;
 }
 
-int main() {
+int main()
+{
     // Пример использования функции filter_video_files
     video_file_t** filtered_files = filter_video_files((const video_file_t**)files, filter_func, copy_func, malloc);
 
@@ -106,9 +108,9 @@ int main() {
         size_t i = 0;
         while (filtered_files[i]) {
             printf("Name: %s, Codec: %s, Size: %zu bytes\n",
-                   filtered_files[i]->name,
-                   filtered_files[i]->codec,
-                   filtered_files[i]->size_bytes);
+                filtered_files[i]->name,
+                filtered_files[i]->codec,
+                filtered_files[i]->size_bytes);
             i++;
         }
 
@@ -117,8 +119,8 @@ int main() {
             free(filtered_files[i]);
         }
         free(filtered_files);
-    }
-    else printf("No files passed the filter.\n");
+    } else
+        printf("No files passed the filter.\n");
 
     return 0;
 }

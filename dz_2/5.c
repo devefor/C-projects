@@ -5,11 +5,11 @@ int main(void)
     unsigned short numb = 0;
     unsigned int capacity = 0;
 
-    unsigned long sum  = 0;
+    unsigned long sum = 0;
 
     if (scanf("%hu", &numb))
         if (scanf("%u", &capacity)) {
-            
+
             unsigned int water = capacity;
             for (size_t i = 0; i < numb; i++) {
 
@@ -19,8 +19,7 @@ int main(void)
                     if (water >= plant) {
                         sum += 1;
                         water -= plant;
-                    }
-                    else {
+                    } else {
                         water = capacity;
                         water -= plant;
                         sum += i + i + 1;

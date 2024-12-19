@@ -1,5 +1,5 @@
-#include <stdio.h>
 #include <stdint.h>
+#include <stdio.h>
 
 int main(void)
 {
@@ -9,19 +9,19 @@ int main(void)
 
     uint16_t sum = 0;
 
-    while ((c = getchar()) != '\n')
-    {
+    while ((c = getchar()) != '\n') {
         str |= 1 << (c - 97);
     }
 
-    while ((c = getchar()) != '\0')
-    {
+    while ((c = getchar()) != '\0') {
         if (c == '\n' || c == ' ') {
-            if (str == word) sum += 1;
+            if (str == word)
+                sum += 1;
             word = 0;
-            if (c == '\n') break;
-        }
-        else word |= 1 << (c - 97);
+            if (c == '\n')
+                break;
+        } else
+            word |= 1 << (c - 97);
     }
 
     printf("%hu\n", sum);

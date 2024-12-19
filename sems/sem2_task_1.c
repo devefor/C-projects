@@ -8,14 +8,13 @@ int main(void)
     scanf("%d", &numb);
 
     Fib(0, 1, numb);
-    
+
     return 0;
 }
 
 void Fib(unsigned long int now, unsigned long int next, int numb)
 {
-    if (numb > 1)
-    {
+    if (numb > 1) {
         Fib(next, now + next, numb - 1);
         printf(" ");
     }

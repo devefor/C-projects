@@ -19,10 +19,10 @@ int main(void)
                 unsigned int length = strlen(read_str) - 1;
                 if (length > MAX_LEN || length == 0)
                     continue;
-                
+
                 if (read_str[length] == '\n')
                     read_str[length] = 0;
-                
+
                 unsigned int j = 0;
                 while (j < 10001) {
                     if (read_str[j] < 32 || read_str[j] > 126)
@@ -31,8 +31,8 @@ int main(void)
                 }
 
                 if (j < (length - 1))
-                    continue;                   
-                    
+                    continue;
+
                 length--;
                 if (info_length[length][0] == 0)
                     info_length[length][0] = i + 1;
@@ -59,7 +59,7 @@ int main(void)
                         if ((info_length[length][0] != 0))
                             printf("%d,%d\n", info_length[length][0], info_length[length][1]);
                         else
-                            printf("NO!\n");  
+                            printf("NO!\n");
                     else
                         printf("NO!\n");
                 } else if (symbol == 'L') {
@@ -67,9 +67,9 @@ int main(void)
                     if (letter >= 32 && letter <= 126)
                         if (info_letter[letter - 32][0] != 0)
                             printf("%d,%d\n", info_letter[letter - 32][0], info_letter[letter - 32][1]);
-                        else    
+                        else
                             printf("NO!\n");
-                    else    
+                    else
                         printf("NO!\n");
                 }
             }

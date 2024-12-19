@@ -10,6 +10,6 @@ int main(void)
     printf("0x%lx%n\n", numb, &count);
 
     printf("%d", count);
-    
+
     return 0;
 }

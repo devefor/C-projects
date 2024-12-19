@@ -3,7 +3,7 @@
 unsigned long factorial(unsigned int start, unsigned int end);
 
 int main(void)
-{   
+{
     unsigned int n = 0;
     unsigned int k = 0;
     scanf("%u %u", &n, &k);
@@ -14,7 +14,7 @@ int main(void)
     divisible = factorial(1 + k, n);
     devider = factorial(1, n - k);
 
-    printf("%lu\n", divisible/devider);
+    printf("%lu\n", divisible / devider);
 
     return 0;
 }
@@ -22,6 +22,7 @@ int main(void)
 unsigned long factorial(unsigned int start, unsigned int end)
 {
     unsigned long f = 1;
-    for (unsigned int i = start; i < end + 1; i++) f *= i;
+    for (unsigned int i = start; i < end + 1; i++)
+        f *= i;
     return f;
 }

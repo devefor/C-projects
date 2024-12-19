@@ -1,8 +1,8 @@
-#include <stdio.h>
-#include <stdint.h>
 #include "struct.h"
+#include <stdint.h>
+#include <stdio.h>
 
-int main(void) 
+int main(void)
 {
     return 0;
 }

@@ -1,5 +1,5 @@
-#include <stdio.h>
 #include <stdint.h>
+#include <stdio.h>
 
 void order(uint32_t bracket, uint8_t amount, uint8_t numb_zero, uint8_t numb_unit, int8_t stage, uint32_t start_bracket);
 
@@ -34,8 +34,10 @@ void order(uint32_t bracket, uint8_t amount, uint8_t numb_zero, uint8_t numb_uni
 
     if (bracket >= start_bracket && stage == -1) {
         for (int i = 2 * amount - 1; i > -1; i--)
-            if (bracket & 1 << i) putchar('{');
-            else putchar('}');
+            if (bracket & 1 << i)
+                putchar('{');
+            else
+                putchar('}');
 
         putchar('\n');
     }

@@ -5,8 +5,7 @@ void convert();
 int main(void)
 {
     char c = getchar();
-    if (c != '\n')
-    {
+    if (c != '\n') {
         convert();
         printf("%c\n", c);
     }
@@ -16,8 +15,7 @@ int main(void)
 void convert()
 {
     char c = getchar();
-    if (c != '\n')
-    {
+    if (c != '\n') {
         convert();
         printf("%c", c);
     }

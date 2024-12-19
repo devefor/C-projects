@@ -1,12 +1,12 @@
 #include <stdio.h>
 
-unsigned short check_string(unsigned char *string);
-unsigned short check_column(unsigned char *column);
-unsigned short check_square(unsigned char *square);
+unsigned short check_string(unsigned char* string);
+unsigned short check_column(unsigned char* column);
+unsigned short check_square(unsigned char* square);
 
 int main(void)
 {
-    unsigned char sudoku[9][9] = {0};
+    unsigned char sudoku[9][9] = { 0 };
 
     char valid = 1;
 
@@ -20,7 +20,7 @@ int main(void)
                 }
             }
         }
-    
+
     for (int i = 0; i < 9; i++) {
 
         if (check_string(sudoku[i]) != 0x1FF) {
@@ -50,35 +50,35 @@ int main(void)
             }
         }
     }
-    
+
     valid == 1 ? printf("valid\n") : printf("invalid\n");
 
     return 0;
 }
 
-unsigned short check_string(unsigned char *string)
+unsigned short check_string(unsigned char* string)
 {
     unsigned short result = 0;
 
     for (int i = 0; i < 9; i++) {
         result |= 1 << (string[i] - 1);
     }
-    
+
     return result;
 }
 
-unsigned short check_column(unsigned char *column)
+unsigned short check_column(unsigned char* column)
 {
     unsigned short result = 0;
 
     for (int i = 0; i < 9; i++) {
         result |= 1 << (column[i * 9] - 1);
     }
-    
+
     return result;
 }
 
-unsigned short check_square(unsigned char *square)
+unsigned short check_square(unsigned char* square)
 {
     unsigned short result = 0;
 
@@ -87,6 +87,6 @@ unsigned short check_square(unsigned char *square)
             result |= 1 << (square[j + i * 9] - 1);
         }
     }
-    
+
     return result;
 }

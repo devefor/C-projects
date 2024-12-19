@@ -61,5 +61,3 @@ void search_end_island(unsigned short row, unsigned short column,
     if ((matrix[location_x * column + location_y + 1] == 1) && (location_y + 1 >= 0) && (visit_matrix[location_x * column + location_y + 1] == 0))
         search_end_island(row, column, location_x, location_y + 1, matrix, visit_matrix);
 }
-
-

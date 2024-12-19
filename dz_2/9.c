@@ -7,8 +7,9 @@ int main(void)
 
     unsigned long factorial = 1;
 
-    while (numb) factorial *= numb--;
-    
+    while (numb)
+        factorial *= numb--;
+
     printf("%lu\n", factorial);
     return 0;
 }

@@ -1,6 +1,5 @@
 #include <stdio.h>
 
-
 int main(void)
 {
     unsigned int numBottles = 0;
@@ -9,8 +8,7 @@ int main(void)
 
     unsigned char drink = 0;
     unsigned char remain = 0;
-    while(numBottles)
-    {
+    while (numBottles) {
         drink += numBottles;
         numBottles += remain;
         remain = numBottles % numExchange;

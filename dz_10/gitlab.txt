@@ -1,0 +1,49 @@
+stages:
+  - lint
+  - build
+  - build_test
+  - test
+
+lint:
+  tags:
+    - docker
+  stage: lint
+  script:
+    - apt-get install -y cppcheck
+    - apt-get install -y make
+    - apt-get install libcmocka-dev
+    - cppcheck --enable=all --error-exitcode=1 --suppress=missingIncludeSystem --suppress=nullPointerRedundantCheck -Iinclude src include
+
+build:
+  tags:
+    - docker
+  stage: build
+  dependencies:
+    - lint
+  script:
+    - make build
+  artifacts:
+    paths:
+      - ./bin/sentence_counter
+
+build_test:
+  tags:
+    - docker
+  stage: build_test
+  dependencies:
+    - lint
+  script:
+    - make build_test
+  artifacts:
+    paths:
+      - ./bin/sentence_counter_test
+
+test:
+  tags:
+    - docker
+  stage: test
+  dependencies:
+    - build
+    - build_test
+  script:
+    - make test

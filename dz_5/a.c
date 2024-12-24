@@ -104,17 +104,19 @@ int32_t search_shift(int32_t end, float* array)
 // Бинарный поиск в выделенной части массива
 int32_t binary_search(float value, int32_t start, int32_t end, float eps, float* array)
 {
+    int32_t index = -1;
     while (start <= end) {
         int32_t center = start + (end - start) / 2;
         if ((array[center] - value) <= eps && (array[center] - value) >= -eps) {
-            return center;
+            index = center;
+            end = index - 1;
         } else if (array[center] < value)
             start = center + 1;
         else
             end = center - 1;
     }
 
-    return -1;
+    return index;
 }
 
 // Просматриваем в обоих частях массива
